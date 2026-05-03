@@ -1,0 +1,61 @@
+---
+// Interfaz define qué props acepta este componente
+interface Props {
+  title: string;
+  description: string;
+  href?: string;
+  tag?: string;
+}
+
+const { title, description, href, tag } = Astro.props;
+---
+
+<article class="card">
+  {tag && <span class="tag">{tag}</span>}
+  <h3>{title}</h3>
+  <p>{description}</p>
+  {href && <a href={href} class="link">Ver más →</a>}
+</article>
+
+<style>
+  /* Estos estilos son SCOPED: solo aplican a este componente */
+  .card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--color-primary);
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  p {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .link {
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+</style>

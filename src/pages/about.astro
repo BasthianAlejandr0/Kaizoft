@@ -1,0 +1,86 @@
+---
+// Segunda página — solo existir en src/pages/ la hace accesible en /about
+import Layout from '../layouts/Layout.astro';
+
+// Lógica normal: condicionales, cálculos, lo que necesites
+const version = "6.2";
+const lanzamiento = new Date("2019-10-01");
+const años = new Date().getFullYear() - lanzamiento.getFullYear();
+---
+
+<Layout title="Sobre Astro" description="Qué es Astro y por qué usarlo">
+  <h1>Sobre Astro</h1>
+  <p class="subtitulo">Framework web de contenido primero, versión {version}</p>
+
+  <section class="bloque">
+    <h2>¿Qué es?</h2>
+    <p>
+      Astro es un framework para construir sitios web rápidos. Su idea central es
+      <strong>enviar cero JavaScript al browser por defecto</strong>. El HTML se genera
+      en tiempo de build (SSG) o en el servidor (SSR), no en el cliente.
+    </p>
+  </section>
+
+  <section class="bloque">
+    <h2>Sintaxis .astro en una página</h2>
+    <pre><code>{`---
+// 1. Frontmatter: solo corre en el servidor
+import Componente from '../components/Componente.astro';
+const dato = "hola";
+---
+
+<!-- 2. Template: HTML + expresiones JS entre llaves -->
+<h1>{dato}</h1>
+<Componente prop="valor" />
+
+<style>
+  /* 3. Estilos: scoped por defecto */
+  h1 { color: purple; }
+</style>`}</code></pre>
+  </section>
+
+  <section class="bloque">
+    <h2>Dato curioso</h2>
+    {años > 0 ? (
+      <p>Astro lleva más de {años} años en desarrollo activo.</p>
+    ) : (
+      <p>Astro es muy reciente.</p>
+    )}
+  </section>
+</Layout>
+
+<style>
+  h1 {
+    font-size: 2.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .subtitulo {
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+  }
+
+  .bloque {
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    line-height: 1.7;
+    color: #374151;
+  }
+
+  pre {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    padding: 1.25rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+</style>

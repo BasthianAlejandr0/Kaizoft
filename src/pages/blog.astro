@@ -1,0 +1,77 @@
+---
+// Esta página muestra cómo manejar listas y renderizado condicional
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+
+// En un proyecto real estos datos vendrían de un CMS, Markdown, o fetch()
+const posts = [
+  {
+    slug: "que-es-astro",
+    title: "¿Qué es Astro?",
+    description: "Introducción al framework que prioriza el HTML sobre el JavaScript.",
+    fecha: "2026-01-10",
+    publicado: true,
+  },
+  {
+    slug: "componentes-astro",
+    title: "Componentes en Astro",
+    description: "Cómo crear y usar componentes .astro con props y slots.",
+    fecha: "2026-01-18",
+    publicado: true,
+  },
+  {
+    slug: "routing-avanzado",
+    title: "Routing dinámico",
+    description: "Rutas dinámicas con [slug].astro y getStaticPaths().",
+    fecha: "2026-02-05",
+    publicado: false,
+  },
+];
+
+// Filtrar en el frontmatter — el HTML nunca ve los borradores
+const publicados = posts.filter((p) => p.publicado);
+---
+
+<Layout title="Blog">
+  <h1>Blog</h1>
+  <p class="meta">{publicados.length} artículos publicados</p>
+
+  <div class="grid">
+    {publicados.map((post) => (
+      <Card
+        title={post.title}
+        description={post.description}
+        href={`/blog/${post.slug}`}
+        tag={post.fecha}
+      />
+    ))}
+  </div>
+
+  {publicados.length === 0 && (
+    <p class="vacio">No hay artículos aún.</p>
+  )}
+</Layout>
+
+<style>
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .meta {
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .vacio {
+    color: var(--color-muted);
+    text-align: center;
+    padding: 3rem 0;
+  }
+</style>
