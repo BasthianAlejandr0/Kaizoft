@@ -1,1 +1,3 @@
-/* /index.html 200
+# Rutas reales de Astro — Netlify las sirve como archivos HTML estáticos
+# Si ninguna coincide, servir la página 404 personalizada
+/* /404.html 404

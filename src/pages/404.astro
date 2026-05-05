@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Página no encontrada">
+  <section class="not-found">
+    <span class="code">404</span>
+    <h1>Página no encontrada</h1>
+    <p>La ruta que buscas no existe o fue movida.</p>
+    <a href="/">Volver al inicio</a>
+  </section>
+</Layout>
+
+<style>
+  .not-found {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 4rem 2rem;
+  }
+
+  .code {
+    font-size: 6rem;
+    font-weight: 900;
+    color: #1d4ed8;
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1e3a8a;
+  }
+
+  p {
+    color: #6b7280;
+  }
+
+  a {
+    background: #1d4ed8;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    transition: background 0.15s;
+  }
+
+  a:hover { background: #1e40af; }
+</style>
