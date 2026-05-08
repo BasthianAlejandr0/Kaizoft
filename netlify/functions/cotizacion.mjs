@@ -1,19 +1,17 @@
-export const prerender = false;//? esto le dice a Astro "esta ruta es server-side
-
-import type {APIRoute} from 'astro';
-
-
 import { Resend } from 'resend';
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const POST: APIRoute = async ({ request }) => {
-  const data = await request.json();
-  const { nombre, email, empresa, proyecto } = data;
+export default async (req) => {
+  if (req.method !== 'POST') {
+    return new Response('Method not allowed', { status: 405 });
+  }
+
+  const { nombre, email, empresa, proyecto } = await req.json();
 
   const { error } = await resend.emails.send({
     from: 'Cotizaciones <onboarding@resend.dev>',
-    to: ['basthian.alejandro27@gmail.com'], // 👈 cambia esto por tu correo real
+    to: ['basthian.alejandro27@gmail.com'],
     subject: `Nueva cotización de ${nombre}`,
     html: `
       <h2>Nueva solicitud de cotización</h2>
@@ -30,3 +28,5 @@ export const POST: APIRoute = async ({ request }) => {
 
   return new Response(JSON.stringify({ ok: true }), { status: 200 });
 };
+
+export const config = { path: '/api/cotizacion' };
